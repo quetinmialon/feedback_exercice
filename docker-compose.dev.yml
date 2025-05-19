@@ -13,3 +13,11 @@ services:
         target: /home/node
       - type: volume
         target: /home/node/node_modules
+  backend:
+    stdin_open: true
+    tty: true
+    ports:
+      - "8080:80"
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./backend
