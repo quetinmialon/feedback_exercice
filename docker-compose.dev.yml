@@ -13,3 +13,12 @@ services:
         target: /home/node
       - type: volume
         target: /home/node/node_modules
+  reverse-proxy:
+    build:
+      context: ./reverse-proxy
+      dockerfile: Dockerfile.dev
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      
