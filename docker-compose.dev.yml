@@ -1,0 +1,15 @@
+services:
+  frontend:
+    stdin: true
+    tty: true
+    ports:
+      - "5173:5173"
+    build:
+      dockerfile: Dockerfile.dev
+      context: docker/frontend
+    volumes: 
+      - type: bind
+        source: ./frontend
+        target: /home/node
+      - type: volumes
+        target: /home/node/node_modules
