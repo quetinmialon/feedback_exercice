@@ -13,11 +13,45 @@ services:
         target: /home/node
       - type: volume
         target: /home/node/node_modules
+    depends_on:
+      - backend
+    restart: unless-stopped
   backend:
     stdin_open: true
     tty: true
+    restart: unless-stopped
     ports:
       - "8080:80"
     build:
       dockerfile: Dockerfile.dev
       context: ./backend
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - db
+    
+  db:
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: feedback
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+  pma:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: user
+      PMA_PASSWORD: password
+    depends_on:
+      - db
+volumes:
+  db_data:
