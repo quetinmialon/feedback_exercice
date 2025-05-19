@@ -42,7 +42,7 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-  pma:
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: unless-stopped
     ports:
@@ -53,5 +53,13 @@ services:
       PMA_PASSWORD: password
     depends_on:
       - db
+  reverse-proxy:
+    build:
+      context: ./reverse-proxy
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8081:80"
+    depends_on:
+      - frontend
 volumes:
   db_data:
