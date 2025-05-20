@@ -1,10 +1,17 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { BrowserRouter } from 'react-router-dom';
+import { OverlayProvider } from '@contexts/OverlayContext';
+import { AuthProvider } from '@contexts/AuthContext';
+
+import App from './App'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <AuthProvider>
+  <OverlayProvider>
+      <BrowserRouter>
+          <App />
+      </BrowserRouter>
+  </OverlayProvider>
+  </AuthProvider>
+
 )
