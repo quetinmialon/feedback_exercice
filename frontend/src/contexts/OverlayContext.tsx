@@ -27,29 +27,19 @@ export const useOverlay = (): OverlayContextModel => {
  * @returns 
  */
 export const OverlayProvider: React.FC<OverlayProviderProps> = ({ children }) => {
-    const [isLoginChoice, setIsLoginChoice] = useState(false);
-    const [isLoginEmail, setIsLoginEmail] = useState(false);
+    const [isLoginEmailAndPassword, setIsLoginEmail] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isMask, setIsMask] = useState(false);
-    const [isLoginPass, setIsLoginPass] = useState(false);
-    const [isLoginReinit, setIsLoginReinit] = useState(false);
-    const [isLoginCreate, setIsLoginCreate] = useState(false);
-    const [isLoginSent, setIsLoginSent] = useState(false);
+    const [isRegisterForm, setIsRegisterForm] = useState(false);
     const [email, setEmail] = useState("");
-    const [isProfile, setIsProfile] = useState(false);
 
     return (
         <OverlayContext.Provider value={{
             isMask, setIsMask,
-            isLoginPass, setIsLoginPass,
-            isLoginReinit, setIsLoginReinit,
-            isLoginCreate, setIsLoginCreate,
-            isLoginSent, setIsLoginSent,
-            isLoginChoice, setIsLoginChoice,
-            isLoginEmail, setIsLoginEmail,
+            isRegisterForm, setIsRegisterForm,
+            isLoginEmailAndPassword, setIsLoginEmail,
             isLoading, setIsLoading,
-            email, setEmail,
-            isProfile, setIsProfile
+            email, setEmail
             }}>
             {children}
         </OverlayContext.Provider>

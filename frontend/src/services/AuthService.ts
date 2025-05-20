@@ -4,52 +4,16 @@
 
 // config importations
 import { uri,color } from "../config";
-import { CheckEmailResponse, CheckPasswordResponse, CheckUsernameResponse, CreateAccountResponse, CheckSessionResponse } from "@models/Auth";
+import { checkEmailAndPasswordResponse, CreateAccountResponse } from "@models/Auth";
 
 
 /**
  * Service to get the carousel memos for the home page
  * @returns Promise<any[]>
  */
-const checkEmail = async (email: string): Promise<CheckEmailResponse> => {
-
+const checkEmailAndPassword = async (email: string, password: string): Promise<checkEmailAndPasswordResponse> => {
     try {
-        const response = await fetch(`${uri.gateway}/user/email?action=check`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify({
-                email: email
-            })
-        });
-
-
-        if (!response.ok) {
-            const data = await response.json();
-            return data;
-        }
-        const data: CheckEmailResponse = await response.json();
-        console.log(color.bgGreen, "[SERVICE]","checkEmail", data);
-
-        return data;
-
-    } catch (error: unknown) {
-        console.error("Erreur dans checkEmail:", error);
-        throw new Error;
-        
-    }
-};
-
-
-/**
- * Service to get the carousel memos for the home page
- * @returns Promise<any[]>
- */
-const checkPassword = async (password: string, email: string): Promise<CheckPasswordResponse> => {
-
-    try {
-        const response = await fetch(`${uri.gateway}/user/session?action=login`, {
+        const response = await fetch(`${uri.gateway}/user/auth`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,61 +23,32 @@ const checkPassword = async (password: string, email: string): Promise<CheckPass
                 password: password
             })
         });
-        
+
+
         if (!response.ok) {
-            const errorData = await response.json();
-            console.error(errorData.message);
-            throw new Error;
+            const data = await response.json();
+            return data;
         }
-
-        const data: CheckPasswordResponse = await response.json();
-        console.log(color.bgGreen, "[SERVICE]","checkPassword", data);
-        // Store the token in the local storage
-        localStorage.setItem('token', data.token);
+        const data: checkEmailAndPasswordResponse = await response.json();
+        console.log(color.bgGreen, "[SERVICE]","checkEmailAndPassword", data);
 
         return data;
 
     } catch (error: unknown) {
-        console.error("Erreur inconnue", error);
+        console.error("Erreur dans checkEmailAndPassword:", error);
         throw new Error;
     }
 };
+
+
 
 
 /**
  * Service to get the carousel memos for the home page
  * @returns Promise<any[]>
  */
-const checkUsername = async (username: string): Promise<CheckUsernameResponse> => {
-
-    try {
-        const response = await fetch(`${uri.gateway}/user/username?action=check`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'                
-            },
-            body : JSON.stringify({
-                username: username
-            })
-        });
-        
-        const data: CheckUsernameResponse = await response.json();
-        console.log(color.bgGreen, "[SERVICE]","checkUsername", data);
-        return data;
-
-    } catch (error: unknown) {
-        console.error("Erreur inconnue", error);
-        throw new Error;
-    }
-};
-
-
-/**
- * Service to get the carousel memos for the home page
- * @returns Promise<any[]>
- */
-const createAccount = async (username: string, email: string): Promise<CreateAccountResponse> => {
-
+const createAccount = async (name: string, email: string, password: string, id_role: number): Promise<CreateAccountResponse> => {
+console.log('', color.bgCyan, "[SERVICE]","createAccount", name, email, password, id_role);
     try {
         const response = await fetch(`${uri.gateway}/user/session?action=signin`, {
             method: 'POST',
@@ -121,8 +56,10 @@ const createAccount = async (username: string, email: string): Promise<CreateAcc
                 'Content-Type': 'application/json',
             },
             body : JSON.stringify({
-                username: username,
-                email: email
+                name: name,
+                email: email,
+                password: password,
+                id_role: id_role
             })
         });
         
@@ -144,37 +81,5 @@ const createAccount = async (username: string, email: string): Promise<CreateAcc
 };
 
 
-/**
- * Service to get the carousel memos for the home page
- * @returns Promise<any[]>
- */
-const checkSession = async (sessionToken: string): Promise<CheckSessionResponse> => {
 
-    try {
-        const response = await fetch(`${uri.gateway}/user/session?action=check`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${sessionToken}`
-            }
-        });
-        
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error(errorData.message);
-            throw new Error;
-        }
-
-        const data: CheckSessionResponse = await response.json();
-        console.log(color.bgGreen, "[SERVICE]","checkSession", data);
-
-        return data;
-
-    } catch (error: unknown) {
-        console.error("Erreur inconnue", error);
-        throw new Error;
-    }
-};
-
-
-export { checkEmail, checkPassword, checkUsername, createAccount, checkSession };
+export { checkEmailAndPassword, createAccount };

@@ -30,8 +30,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [isConnexion, setIsConnexion] = useState(false);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
-    const [avatar, setAvatar] = useState("");
-    const [uuid, setUuid] = useState("");
+
 
 
 
@@ -39,8 +38,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsConnexion(false);
         setUsername("");
         setEmail("");
-        setAvatar("");
-        setUuid("");
+
     };
 
 
@@ -48,7 +46,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ isConnexion, setIsConnexion, username, setUsername, email, setEmail, logout, setAvatar, avatar, uuid, setUuid }}>
+        <AuthContext.Provider value={{ isConnexion, setIsConnexion, username, setUsername, email, setEmail, logout }}>
             {children}
         </AuthContext.Provider>
     );

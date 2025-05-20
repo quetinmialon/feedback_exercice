@@ -12,10 +12,6 @@ export interface AuthContextModel {
     email: string;
     setEmail: (email: string) => void;
     logout: () => void;
-    avatar: string;
-    setAvatar: (avatar: string) => void;
-    uuid: string;
-    setUuid: (uuid: string) => void;
 }
 
 
@@ -26,7 +22,7 @@ export interface AuthProviderProps {
 
 
 
-export interface CheckEmailResponse {
+export interface checkEmailAndPasswordResponse {
 
         state: boolean;
 

@@ -22,7 +22,8 @@ export default defineConfig({
       '@models': path.resolve(__dirname, 'src/models'),
       '@components': path.resolve(__dirname, 'src/components'),
       '@contexts': path.resolve(__dirname, 'src/contexts'),
-      '@services': path.resolve(__dirname, 'src/services')
+      '@services': path.resolve(__dirname, 'src/services'),
+      '@ui': path.resolve(__dirname, 'src/components/UI'),
     }
   },
   server: {
