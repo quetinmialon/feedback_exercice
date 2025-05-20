@@ -16,12 +16,10 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@models/*": ["src/_models/*"],
-      "@contexts/*": ["src/_contexts/*"],
-      "@services/*": ["src/_services/*"],
-      "@components/*": ["src/_components/*"],
-      "@child_components/*": ["src/_child-components/*"],
-      "@overlay_components/*": ["src/_overlay-components/*"],
+      "@models/*": ["src/models/*"],
+      "@contexts/*": ["src/contexts/*"],
+      "@services/*": ["src/services/*"],
+      "@components/*": ["src/components/*"]
     },
     
   },
